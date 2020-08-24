@@ -40,8 +40,10 @@ public class GerenciadoraClientesTest {
     public void testRemoveCliente() {
         /*=============== Montagem do Cenário ================*/
         //Criando alguns Clientes
-        Cliente cliente01 = new Cliente(1, "Gustavo Farias", 31, "gugafarias@gmail.com", 1, true);
-        Cliente cliente02 = new Cliente(2, "Felipe Augusto", 34, "felipeaugusto@gmail.com", 2, true);
+        int idCliente1 = 1;
+        int idCliente2 = 2;
+        Cliente cliente01 = new Cliente(idCliente1, "Gustavo Farias", 31, "gugafarias@gmail.com", 1, true);
+        Cliente cliente02 = new Cliente(idCliente2, "Felipe Augusto", 34, "felipeaugusto@gmail.com", 2, true);
         //Inserindo os clientes na lista do Banco
         List<Cliente> clientesDoBanco = new ArrayList<>();
         clientesDoBanco.add(cliente01);
@@ -50,12 +52,12 @@ public class GerenciadoraClientesTest {
         GerenciadoraClientes gerClientes = new GerenciadoraClientes(clientesDoBanco);
         /*=============== Execução ================*/
         //Roda o metodo que se quer testar - Act
-        boolean clienteRemovido = gerClientes.removeCliente(2);
+        boolean clienteRemovido = gerClientes.removeCliente(idCliente2);
         /*=============== Verificações ================*/
         // verificação - Verify
         assertThat(clienteRemovido, is(true));
         assertThat(gerClientes.getClientesDoBanco().size(),is(1));
-        assertNull(gerClientes.pesquisaCliente(2));
+        assertNull(gerClientes.pesquisaCliente(idCliente2));
     }
 
 }
