@@ -12,7 +12,8 @@ import static org.junit.Assert.*;
 public class GerenciadoraClientesTest {
 
     @Test
-    public void pesquisaCliente() {
+    public void testPesquisaCliente() {
+        /*=============== Montagem do Cenário ================*/
         //Criando alguns Clientes
         Cliente cliente01 = new Cliente(1, "Gustavo Farias", 31, "gugafarias@gmail.com", 1, true);
         Cliente cliente02 = new Cliente(2, "Felipe Augusto", 34, "felipeaugusto@gmail.com", 2, true);
@@ -22,19 +23,22 @@ public class GerenciadoraClientesTest {
         clientesDoBanco.add(cliente02);
         //Instancia uma GerenciadoraClientes
         GerenciadoraClientes gerClientes = new GerenciadoraClientes(clientesDoBanco);
+        /*=============== Execução ================*/
         //Roda o metodo que se quer testar - Act
         Cliente cliente = gerClientes.pesquisaCliente(1);
+        /*=============== Verificações ================*/
         // verificação - Verify
         assertThat(cliente.getId(),is(1));
         assertThat(cliente.getEmail(),is("gugafarias@gmail.com"));
-        Assert.assertTrue(cliente.getEmail()=="gugafarias@gmail.com");
-        Assert.assertEquals("gugafarias@gmail.com", cliente.getEmail());
-        Assert.assertEquals(cliente.getEmail(),"gugafarias@gmail.com");
+        assertTrue(cliente.getEmail()=="gugafarias@gmail.com");
+        assertEquals("gugafarias@gmail.com", cliente.getEmail());
+        assertEquals(cliente.getEmail(),"gugafarias@gmail.com");
 
     }
 
     @Test
-    public void removeCliente() {
+    public void testRemoveCliente() {
+        /*=============== Montagem do Cenário ================*/
         //Criando alguns Clientes
         Cliente cliente01 = new Cliente(1, "Gustavo Farias", 31, "gugafarias@gmail.com", 1, true);
         Cliente cliente02 = new Cliente(2, "Felipe Augusto", 34, "felipeaugusto@gmail.com", 2, true);
@@ -44,8 +48,10 @@ public class GerenciadoraClientesTest {
         clientesDoBanco.add(cliente02);
         //Instancia uma GerenciadoraClientes
         GerenciadoraClientes gerClientes = new GerenciadoraClientes(clientesDoBanco);
+        /*=============== Execução ================*/
         //Roda o metodo que se quer testar - Act
         boolean clienteRemovido = gerClientes.removeCliente(2);
+        /*=============== Verificações ================*/
         // verificação - Verify
         assertThat(clienteRemovido, is(true));
         assertThat(gerClientes.getClientesDoBanco().size(),is(1));
