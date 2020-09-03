@@ -2,10 +2,13 @@ package test;
 
 import negocio.Cliente;
 import negocio.GerenciadoraClientes;
+import negocio.IdadeNaoPermitidaException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.hamcrest.core.Is.is;
@@ -60,6 +63,33 @@ public class GerenciadoraClientesTest {
         assertThat(clienteRemovido, is(true));
         assertThat(gerClientes.getClientesDoBanco().size(),is(1));
         assertNull(gerClientes.pesquisaCliente(idCliente2));
+    }
+
+    @Test
+    public void testPesquisaClienteInexistente() {
+        /*=============== Execução ================*/
+        Cliente cliente = gerClientes.pesquisaCliente(1001);
+        /*=============== Verificações ================*/
+        assertNull(cliente);
+    }
+
+    @Test
+    public void testRemoveClienteInexistente() {
+        /*=============== Execução ================*/
+        boolean clienteRemovido = gerClientes.removeCliente(1001);
+        /*=============== Verificações ================*/
+        assertThat(clienteRemovido, is(false));
+        assertThat(gerClientes.getClientesDoBanco().size(),is(2));
+    }
+
+    @Test
+    public void testValidaIdade() throws IdadeNaoPermitidaException {
+        /*=============== Criação Cenário - Arrange =================*/
+        Cliente cliente = new Cliente(idCliente1, "Gustavo", 25, "guga@gmail.com", 1, true);
+        /*=============== Execução - Act =======++++++++++++=========*/
+        boolean idadeValida = gerClientes.validaIdade(cliente.getIdade());
+        /*=============== Verificações - Assert =====================*/
+        assertTrue(idadeValida);
     }
 
 }
