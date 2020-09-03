@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class GerenciadoraContasTest {
 
@@ -45,9 +44,9 @@ public class GerenciadoraContasTest {
         /*=============== Execução - Act ================*/
         boolean sucesso = gerContas.transfereValor(idConta1,200,idConta2);
         /*=============== Verificações - Verify ================*/
-        assertFalse(sucesso);
-        assertThat(conta01.getSaldo(), is(100.0));
-        assertThat(conta02.getSaldo(), is(0.0));
+        assertTrue(sucesso);
+        assertThat(conta01.getSaldo(), is(-100.0));
+        assertThat(conta02.getSaldo(), is(200.0));
     }
 
 }
