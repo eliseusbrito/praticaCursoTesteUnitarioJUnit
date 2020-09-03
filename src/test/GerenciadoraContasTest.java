@@ -45,7 +45,7 @@ public class GerenciadoraContasTest {
         /*=============== Execução - Act ================*/
         boolean sucesso = gerContas.transfereValor(idConta1,200,idConta2);
         /*=============== Verificações - Verify ================*/
-        assertFalse(false);
+        assertFalse(sucesso);
         assertThat(conta01.getSaldo(), is(100.0));
         assertThat(conta02.getSaldo(), is(0.0));
     }
