@@ -49,4 +49,58 @@ public class GerenciadoraContasTest {
         assertThat(conta02.getSaldo(), is(200.0));
     }
 
+    @Test
+    public void testeTransfereValor_SaldoNegativoParaPositivo(){
+        /*=============== Montagem do Cenário - Arrange ================*/
+        int idConta1 = 1;
+        int idConta2 = 2;
+        ContaCorrente conta01 = new ContaCorrente(idConta1,-100, true);
+        ContaCorrente conta02 = new ContaCorrente(idConta2,0,true);
+        List<ContaCorrente> contasDoBanco = new ArrayList<>();
+        contasDoBanco.add(conta01);
+        contasDoBanco.add(conta02);
+        GerenciadoraContas gerContas = new GerenciadoraContas(contasDoBanco);
+        /*=============== Execução - Act ================*/
+        gerContas.transfereValor(idConta1,200,idConta2);
+        /*=============== Verificações - Verify ================*/
+        assertThat(conta02.getSaldo(), is(200.0));
+        assertThat(conta01.getSaldo(), is(-300.0));
+    }
+
+    @Test
+    public void testeTransfereValor_SaldoNegativoParaNegativo(){
+        /*=============== Montagem do Cenário - Arrange ================*/
+        int idConta1 = 1;
+        int idConta2 = 2;
+        ContaCorrente conta01 = new ContaCorrente(idConta1,-100, true);
+        ContaCorrente conta02 = new ContaCorrente(idConta2,-100,true);
+        List<ContaCorrente> contasDoBanco = new ArrayList<>();
+        contasDoBanco.add(conta01);
+        contasDoBanco.add(conta02);
+        GerenciadoraContas gerContas = new GerenciadoraContas(contasDoBanco);
+        /*=============== Execução - Act ================*/
+        gerContas.transfereValor(idConta1,200,idConta2);
+        /*=============== Verificações - Verify ================*/
+        assertThat(conta02.getSaldo(), is(100.0));
+        assertThat(conta01.getSaldo(), is(-300.0));
+    }
+
+    @Test
+    public void testeTransfereValor_Nenhum(){
+        /*=============== Montagem do Cenário - Arrange ================*/
+        int idConta1 = 1;
+        int idConta2 = 2;
+        ContaCorrente conta01 = new ContaCorrente(idConta1,-100, true);
+        ContaCorrente conta02 = new ContaCorrente(idConta2,-100,true);
+        List<ContaCorrente> contasDoBanco = new ArrayList<>();
+        contasDoBanco.add(conta01);
+        contasDoBanco.add(conta02);
+        GerenciadoraContas gerContas = new GerenciadoraContas(contasDoBanco);
+        /*=============== Execução - Act ================*/
+        gerContas.transfereValor(idConta1,0,idConta2);
+        /*=============== Verificações - Verify ================*/
+        assertThat(conta02.getSaldo(), is(-100.0));
+        assertThat(conta01.getSaldo(), is(-100.0));
+    }
+
 }
