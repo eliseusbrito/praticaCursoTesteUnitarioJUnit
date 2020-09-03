@@ -83,13 +83,50 @@ public class GerenciadoraClientesTest {
     }
 
     @Test
-    public void testValidaIdade() throws IdadeNaoPermitidaException {
+    public void testValidaIdadeMinima() throws IdadeNaoPermitidaException {
         /*=============== Criação Cenário - Arrange =================*/
-        Cliente cliente = new Cliente(idCliente1, "Gustavo", 25, "guga@gmail.com", 1, true);
+        Cliente cliente = new Cliente(idCliente1, "Gustavo", 18, "guga@gmail.com", 1, true);
         /*=============== Execução - Act =======++++++++++++=========*/
         boolean idadeValida = gerClientes.validaIdade(cliente.getIdade());
         /*=============== Verificações - Assert =====================*/
         assertTrue(idadeValida);
+    }
+    @Test
+    public void testValidaIdadeMaxima() throws IdadeNaoPermitidaException {
+        /*=============== Criação Cenário - Arrange =================*/
+        Cliente cliente = new Cliente(idCliente1, "Gustavo", 65, "guga@gmail.com", 1, true);
+        /*=============== Execução - Act =======++++++++++++=========*/
+        boolean idadeValida = gerClientes.validaIdade(cliente.getIdade());
+        /*=============== Verificações - Assert =====================*/
+        assertTrue(idadeValida);
+    }
+
+    @Test
+    public void testValidaIdadeAbaixoMinima() throws IdadeNaoPermitidaException {
+        /*=============== Criação Cenário - Arrange =================*/
+        Cliente cliente = new Cliente(idCliente1, "Gustavo", 17, "guga@gmail.com", 1, true);
+        /*=============== Execução - Act =======++++++++++++=========*/
+        try{
+            gerClientes.validaIdade(cliente.getIdade());
+            fail();
+        } catch (Exception e ){
+            /*=============== Verificações - Assert =====================*/
+            assertThat(e.getMessage(),is(IdadeNaoPermitidaException.MSG_IDADE_INVALIDA));
+        }
+    }
+
+    @Test
+    public void testValidaIdadeAcimaMaxima() throws IdadeNaoPermitidaException {
+        /*=============== Criação Cenário - Arrange =================*/
+        Cliente cliente = new Cliente(idCliente1, "Gustavo", 66, "guga@gmail.com", 1, true);
+        /*=============== Execução - Act =======++++++++++++=========*/
+        try{
+            gerClientes.validaIdade(cliente.getIdade());
+            fail();
+        } catch (Exception e ){
+            /*=============== Verificações - Assert =====================*/
+            assertThat(e.getMessage(),is(IdadeNaoPermitidaException.MSG_IDADE_INVALIDA));
+        }
     }
 
 }
