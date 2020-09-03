@@ -37,7 +37,7 @@ public class GerenciadoraContasTest {
         int idConta1 = 1;
         int idConta2 = 2;
         ContaCorrente conta01 = new ContaCorrente(idConta1,100, true);
-        ContaCorrente conta02 = new ContaCorrente(idConta1,0,true);
+        ContaCorrente conta02 = new ContaCorrente(idConta2,0,true);
         List<ContaCorrente> contasDoBanco = new ArrayList<>();
         contasDoBanco.add(conta01);
         contasDoBanco.add(conta02);
